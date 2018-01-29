@@ -9,7 +9,6 @@ import utils
 import numpy as np
 from random import randint
 import time
-from multiprocessing import Pool
 
 
 class Bagging(object):
@@ -113,7 +112,7 @@ class Bagging(object):
             rand_num = randint(0, len(self.test_data) - test_num)
             return self.test_data[rand_num:rand_num + test_num], self.test_labels[rand_num:rand_num + test_num]
 
-    def run(self):
+    def run(self,test_num=50):
         """
         使用bagging算法验证测试数据
         :return:
@@ -123,7 +122,7 @@ class Bagging(object):
         self.total_cnt = 0
         self.true_cnt = 0
         # 获取测试数据集
-        test_data, test_labels = self.create_test_img_set(10000)
+        test_data, test_labels = self.create_test_img_set(test_num)
         # 计算测试数据集大小
         lenth = len(test_data)
         # 对测试数据集中的所有数据逐一进行计算
