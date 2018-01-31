@@ -14,7 +14,9 @@ class RandomFrame(QtWidgets.QWidget, random_form):
         super(RandomFrame, self).__init__()
         self.setupUi(self)
         self.show()
+        # 获取要验证的测试数据的数目
         text = self.get_test_num()
+        # 进行验证
         self.classify(int(text))
 
     def get_test_num(self):
@@ -37,8 +39,15 @@ class RandomFrame(QtWidgets.QWidget, random_form):
         return test_num
 
     def classify(self, test_num):
+        """
+        对测试数据进行验证
+        :param test_num: 测试数据的数目
+        :return:
+        """
         from gui.threads import RandomClassifyThread
+        # 创建线程
         self.rct = RandomClassifyThread(self, test_num)
+        # 启动线程
         self.rct.start()
 
 

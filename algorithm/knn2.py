@@ -21,16 +21,10 @@ class KNNClassify(object):
         self.true_cnt = 0
         self.total_cnt = 0
 
-    def read_train_data(self):
-        """
-        获取训练数据
-        :return:
-        """
-        return np.matrix([])
-
     def get_k_minist_labels(self, dist_array):
         """
         获取距离最小的前k个标签
+        :param dist_array:距离列表
         :return:
         """
         # 创建一个优先队列
@@ -56,7 +50,10 @@ class KNNClassify(object):
     def classify(self, img_matrix, img_label, knn_bh=1):
         """
         对输入的图片进行分类进行分类
-        :return:
+        :param img_matrix:图像矩阵
+        :param img_label:图像标签
+        :param knn_bh:knn分类器编号
+        :return:分类结果以及过程信息
         """
         # 求所有训练数据和输入的差值
         diff_matrix = self.train_data - img_matrix
@@ -89,5 +86,5 @@ class KNNClassify(object):
             if probability_array[x] != 0:
                 output += u'数字{}的概率为{:.2f}%\n'.format(x, probability_array[x] * 100)
         output += u'\n最终识别结果为{},概率为{:.2f}%,识别{}\n\n\n'.format(final_kind, probability_array[final_kind] * 100,
-                                                        u'正确' if final_kind == img_label else u'错误')
-        return final_kind,output
+                                                              u'正确' if final_kind == img_label else u'错误')
+        return final_kind, output
