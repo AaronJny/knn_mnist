@@ -33,14 +33,14 @@ class Bagging(object):
         # knn分类器列表
         self.knn_list = self.create_knn_list()
         # 进行测试
-        self.run()
+        self.run(100)
 
     def read_train_data(self):
         """
         读取训练数据及其标签
         :return:
         """
-        data, labels = utils.load_mnist(path='dataset', kind='train')
+        data, labels = utils.load_mnist(path='../dataset', kind='train')
         lenth = len(labels)
         train_data = {}
         for i in range(10):
@@ -56,7 +56,7 @@ class Bagging(object):
         读取测试数据及其标签
         :return:
         """
-        data, labels = utils.load_mnist(path='dataset', kind='t10k')
+        data, labels = utils.load_mnist(path='../dataset', kind='t10k')
         return data, labels
 
     def print_log(self, msg):

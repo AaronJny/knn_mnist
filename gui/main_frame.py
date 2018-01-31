@@ -1,63 +1,44 @@
-# coding=utf-8
-import sys
+# -*- coding: utf-8 -*-
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-import PyQt5
-from PyQt5 import QtWidgets
-import settings
-import utils
-from algorithm import bagging, knn
-from all_frame import *
+# Form implementation generated from reading ui file 'main_frame.ui'
+#
+# Created: Tue Jan 30 19:59:48 2018
+#      by: PyQt5 UI code generator 5.3.2
+#
+# WARNING! All changes made in this file will be lost!
 
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-class MainFrame(QtWidgets.QMainWindow):
-    def __init__(self, parent=None):
-        QtWidgets.QWidget.__init__(self, parent)
-        self.resize(500, 150)
-        self.setWindowTitle(u'基于Bagging算法和KNN算法的数字识别')
-        main_ground=QtWidgets.QWidget()
-        self.setCentralWidget(main_ground)
-        grid=QtWidgets.QGridLayout()
-        QtWidgets.QPushButton()
-        all_button=QtWidgets.QPushButton(u'全部测试')
-        all_button.setToolTip(u'运行全部测试数据')
-        all_button.clicked.connect(self.all_button_clicked)
-        random_button=QtWidgets.QPushButton(u'随机测试')
-        random_button.setToolTip(u'随机运行一部分测试数据，可以指定测试数据数目')
-        random_button.clicked.connect(self.random_button_clicked)
-        write_button=QtWidgets.QPushButton(u'手写测试')
-        write_button.setToolTip(u'手写一个数字，进行识别')
-        grid.addWidget(all_button)
-        grid.addWidget(random_button)
-        grid.addWidget(write_button)
-        main_ground.setLayout(grid)
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(466, 80)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.write_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.write_btn.setGeometry(QtCore.QRect(310, 10, 141, 61))
+        self.write_btn.setObjectName("write_btn")
+        self.random_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.random_btn.setGeometry(QtCore.QRect(160, 10, 141, 61))
+        self.random_btn.setObjectName("random_btn")
+        self.all_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.all_btn.setGeometry(QtCore.QRect(10, 10, 141, 61))
+        self.all_btn.setObjectName("all_btn")
+        MainWindow.setCentralWidget(self.centralwidget)
 
+        self.retranslateUi(MainWindow)
+        self.all_btn.clicked.connect(MainWindow.all_btn_clicked)
+        self.random_btn.clicked.connect(MainWindow.random_btn_clicked)
+        self.write_btn.clicked.connect(MainWindow.write_btn_clicked)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def closeEvent(self, QCloseEvent):
-        """
-        重写关闭事件
-        :param QCloseEvent:
-        :return:
-        """
-        reply = QtWidgets.QMessageBox.question(self, u'确认退出', u'确定要退出吗？', QtWidgets.QMessageBox.Yes,
-                                               QtWidgets.QMessageBox.No)
-        if reply==QtWidgets.QMessageBox.Yes:
-            QCloseEvent.accept()
-        else:
-            QCloseEvent.ignore()
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "基于KNN和bgging算法的数字识别"))
+        self.write_btn.setToolTip(_translate("MainWindow", "<html><head/><body><p>手写一个数字，进行识别</p></body></html>"))
+        self.write_btn.setText(_translate("MainWindow", "手写验证"))
+        self.random_btn.setToolTip(_translate("MainWindow", "<html><head/><body><p>随机运行一部分测试数据，可以指定测试数据数目</p></body></html>"))
+        self.random_btn.setText(_translate("MainWindow", "随机验证"))
+        self.all_btn.setToolTip(_translate("MainWindow", "<html><head/><body><p>运行全部测试数据</p></body></html>"))
+        self.all_btn.setText(_translate("MainWindow", "全部验证"))
 
-
-    def all_button_clicked(self):
-        self.all_frame=All_Frame()
-
-    def random_button_clicked(self):
-        self.random_frame=Random_Frame()
-
-
-
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    main_frame = MainFrame()
-    main_frame.show()
-    sys.exit(app.exec_())
