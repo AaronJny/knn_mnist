@@ -77,4 +77,4 @@ def deal_with_hand_write_img(filename):
 
 
 if __name__ == '__main__':
-    print_log()
+    load_mnist('dataset',kind='train')

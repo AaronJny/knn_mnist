@@ -117,7 +117,7 @@ class Bagging(object):
         使用bagging算法验证测试数据
         :return:
         """
-        tic = time.time()
+        # tic = time.time()
         # 初始化测试次数
         self.total_cnt = 0
         self.true_cnt = 0
@@ -167,8 +167,8 @@ class Bagging(object):
         self.print_log(u'Bagging算法共识别{}次，正确{}次，正确率{:.2f}%'.format(self.total_cnt, self.true_cnt,
                                                                   self.true_cnt * 100.0 / self.total_cnt))
         # self.logger.info(u'{}'.format(output))
-        toc = time.time()
-        print tic, toc, (toc - tic) * 1.0 / 60
+        # toc = time.time()
+        # print tic, toc, (toc - tic) * 1.0 / 60
 
 
 if __name__ == '__main__':

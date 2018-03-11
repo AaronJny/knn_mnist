@@ -21,12 +21,12 @@ class KNNClassify(object):
         self.true_cnt = 0
         self.total_cnt = 0
 
-    def read_train_data(self):
-        """
-        获取训练数据
-        :return:
-        """
-        return np.matrix([])
+    # def read_train_data(self):
+    #     """
+    #     获取训练数据
+    #     :return:
+    #     """
+    #     return np.matrix([])
 
     def get_k_minist_labels(self, dist_array):
         """
@@ -62,10 +62,10 @@ class KNNClassify(object):
         diff_matrix = self.train_data - img_matrix
         # 对差值求平方，算出所有距离的平方
         square_dist_matrix = diff_matrix ** 2
-        # 对距离平方开根号
-        dist_matrix = square_dist_matrix ** 0.5
         # 对距离按行相加
-        dist = np.sum(dist_matrix, axis=1)
+        dist_sum = np.sum(square_dist_matrix, axis=1)
+        # 对距离平方开根号
+        dist = dist_sum ** 0.5
         # 得出距离最小的前K个标签列表
         min_labels = self.get_k_minist_labels(dist)
         # 计算当前图片分别属于10个数字的概率
