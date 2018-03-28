@@ -27,7 +27,7 @@ class Bagging(object):
         # 获取logger
         self.logger_string = u''
         # 训练数据
-        self.train_data = self.read_train_data()
+        self.train_data, self.train_labels = self.read_train_data()
         # 测试数据
         self.test_data, self.test_labels = self.read_test_data()
         # knn分类器列表
@@ -39,15 +39,7 @@ class Bagging(object):
         :return:
         """
         data, labels = utils.load_mnist(path='../dataset', kind='train')
-        lenth = len(labels)
-        train_data = {}
-        for i in range(10):
-            train_data[i] = []
-        for i in range(lenth):
-            train_data[labels[i]].append(data[i])
-        for i in range(10):
-            train_data[i] = np.array(train_data[i])
-        return train_data
+        return data, labels
 
     def read_test_data(self):
         """
@@ -65,6 +57,23 @@ class Bagging(object):
         """
         self.logger_string += utils.print_log(msg)
 
+    def get_random_dataset(self):
+        """
+        使用随机放回重抽样的方法，生成与原样本
+        容量一致的新样本
+        :return: 数据，标签
+        """
+        data = []
+        label = []
+        dataset_size = len(self.train_labels)
+        for i in range(dataset_size):
+            x = randint(0, dataset_size-1)
+            data.append(self.train_data[x])
+            label.append(self.train_labels[x])
+        data = np.array(data, dtype=np.float32)
+        label = np.reshape(np.array(label, dtype=np.int8), [-1, 1])
+        return data, label
+
     def create_knn_list(self):
         """
         创建knn_num个knn分类器，分别为它们分配训练数据，加入到knn_list列表中
@@ -74,24 +83,8 @@ class Bagging(object):
         knn_list = []
         # 创建knn_num个knn分类器，加入到列表中
         for i in range(self.knn_num):
-            # 对第i个分类器的数据集进行初始化
-            train_data = None
-            train_labels = None
-            # 对0-9的数据集进行评分
-            for j in range(10):
-                # 每个分类器应拿到num个标签为j的数据
-                num = len(self.train_data[j]) / self.knn_num
-                tmp_data = self.train_data[j][i * num:i * num + num]
-                # 将该分类器的0-9的数据集整合到一起
-                if train_data is None:
-                    train_data = np.zeros(shape=tmp_data.shape, dtype=np.float32)
-                    train_labels = np.zeros(shape=(num, 1), dtype=np.int8)
-                    train_data += tmp_data
-                    train_labels += j
-                else:
-                    train_data = np.row_stack((train_data, tmp_data))
-                    tmp_labels = np.zeros(shape=(num, 1), dtype=np.int8) + j
-                    train_labels = np.row_stack((train_labels, tmp_labels))
+            # 随机放回重抽样生成数据集
+            train_data, train_labels = self.get_random_dataset()
             knner = KNNClassify(train_data, train_labels)
             knn_list.append(knner)
         return knn_list
