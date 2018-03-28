@@ -40,7 +40,7 @@ mnist数据集在项目根目录下`dataset`目录下。
 
 结果示例：
 
-![全部验证](https://github.com/AaronJny/knn_mnist/sample/sample_1.png)
+![全部验证](https://raw.githubusercontent.com/AaronJny/knn_mnist/master/sample/sample_1.png)
 
 
 **3.随机验证**
@@ -55,7 +55,7 @@ mnist数据集在项目根目录下`dataset`目录下。
 
 结果示例：
 
-![随机验证](https://github.com/AaronJny/knn_mnist/sample/sample_2.png)
+![随机验证](https://raw.githubusercontent.com/AaronJny/knn_mnist/master/sample/sample_2.png)
 
 
 
@@ -78,8 +78,8 @@ mnist数据集在项目根目录下`dataset`目录下。
 
 结果示例1：
 
-![手写验证1](https://github.com/AaronJny/knn_mnist/sample/sample_3.png)
+![手写验证1](https://raw.githubusercontent.com/AaronJny/knn_mnist/master/sample/sample_3.png)
 
 结果示例2：
 
-![手写验证2](https://github.com/AaronJny/knn_mnist/sample/sample_4.png)
+![手写验证2](https://raw.githubusercontent.com/AaronJny/knn_mnist/master/sample/sample_4.png)
