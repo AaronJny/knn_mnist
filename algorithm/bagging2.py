@@ -98,8 +98,16 @@ class Bagging(object):
         if test_num == -1 or test_num > 9999:  # 分配全部测试数据
             return self.test_data, self.test_labels
         else:  # 分配指定数量的测试数据
-            rand_num = randint(0, len(self.test_data) - test_num)
-            return self.test_data[rand_num:rand_num + test_num], self.test_labels[rand_num:rand_num + test_num]
+            data = []
+            label = []
+            dataset_size = len(self.test_labels)
+            for i in range(test_num):
+                x = randint(0, dataset_size - 1)
+                data.append(self.test_data[x])
+                label.append(self.test_labels[x])
+            data = np.array(data, dtype=np.float32)
+            label = np.reshape(np.array(label, dtype=np.int8), [-1, 1])
+            return data, label
 
     def get_img_matrix(self, img):
         """
